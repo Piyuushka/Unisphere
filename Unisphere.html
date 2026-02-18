@@ -1,0 +1,3101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniSphere · unified university portal</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #3498db;
+            --primary-dark: #2980b9;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-light: #f8f9fa;
+            --text-dark: #2c3e40;
+            --text-light: #7f8c8d;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --sidebar-width: 250px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            overflow-x: hidden;
+            color: var(--text-dark);
+            background: #f0f4f8;
+        }
+
+        
+        .page {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white !important;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark) !important;
+            color: white !important;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8rem 5% 4rem;
+            min-height: 80vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-right: 3rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .btn-hero {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-3px);
+        }
+
+        .features {
+            padding: 4rem 5%;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .role-selector {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .role-option {
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .role-option input[type="radio"] {
+            display: none;
+        }
+
+        .role-label {
+            display: block;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .role-option input[type="radio"]:checked + .role-label {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-dark);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-login:hover {
+            background: var(--primary-dark);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .register-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--secondary-color);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header .logo {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .sidebar-menu li {
+            padding: 0.8rem 1.5rem;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar-menu li:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .sidebar-menu li.active {
+            background-color: var(--primary-color);
+        }
+
+        .sidebar-menu a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .sidebar-menu .icon {
+            font-size: 1.2rem;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 1rem;
+            background: #f4f6f9;
+            min-height: 100vh;
+        }
+
+        .dashboard-nav {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-role {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+       
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        
+        .data-table {
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .data-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        
+        .chatbot-container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            margin: 0 auto;
+        }
+
+        .chat-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .chat-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .chat-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            background: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 3px;
+        }
+
+        .message {
+            display: flex;
+            flex-direction: column;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            align-self: flex-end;
+            align-items: flex-end;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            align-items: flex-start;
+        }
+
+        .message-content {
+            padding: 0.8rem 1.2rem;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .user .message-content {
+            background: var(--primary-color);
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .bot .message-content {
+            background: white;
+            color: var(--text-dark);
+            border-bottom-left-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: #999;
+            margin-top: 4px;
+            padding: 0 4px;
+        }
+
+        .chat-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 10px 1.5rem;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+
+        .suggestion-chip {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+        }
+
+        .suggestion-chip:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            margin-right: 0.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .chat-input-area input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .chat-input-area button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .chat-input-area button:hover {
+            background: var(--primary-dark);
+        }
+
+        
+        .dashboard-footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            color: var(--text-light);
+        }
+
+        .dashboard-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        
+        .form-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--secondary-color);
+        }
+
+        .hostel-form, .document-form {
+            display: none;
+        }
+
+        .hostel-form.active, .document-form.active {
+            display: block;
+        }
+
+        
+        .step-inactive { display: none; }
+        .step-active { display: block; animation: fadeIn 0.4s ease-out; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .signature-pad {
+            border: 2px dashed #cbd5e1;
+            background: #f8fafc;
+            cursor: crosshair;
+            width: 100%;
+            height: 160px;
+        }
+
+        .progress-bar {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .photo-preview-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        
+        .staff-sidebar {
+            width: 280px;
+            background: #0b223a;
+            color: #deecff;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 6px 0 28px rgba(0, 25, 50, 0.2);
+            border-radius: 0 28px 28px 0;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+        }
+
+        .staff-sidebar-header {
+            padding: 2rem 1.5rem 1.5rem;
+        }
+
+        .staff-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .staff-logo i {
+            color: #fbbf24;
+            font-size: 2.2rem;
+        }
+
+        .staff-badge {
+            background: #1e3a5f;
+            margin: 0 1.2rem 2rem 1.2rem;
+            padding: 1.2rem 1rem;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: white;
+            box-shadow: inset 0 2px 4px #00000020;
+        }
+
+        .staff-badge i {
+            font-size: 2.5rem;
+            color: #fbbf24;
+        }
+
+        .staff-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .staff-info p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .staff-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0.9rem 1.8rem;
+            margin: 0.2rem 0.8rem;
+            border-radius: 18px;
+            color: #bfd6f0;
+            font-weight: 450;
+            transition: 0.15s;
+            cursor: pointer;
+        }
+
+        .staff-nav-item i { width: 24px; font-size: 1.2rem; }
+        .staff-nav-item.active {
+            background: #2d4b71;
+            color: white;
+            box-shadow: 0 6px 12px #0e263d;
+        }
+        .staff-nav-item:not(.active):hover {
+            background: #1f3d5e;
+            color: white;
+        }
+
+        .staff-logout-btn {
+            margin: auto 1.2rem 1.8rem 1.2rem;
+            padding: 0.9rem;
+            background: #a51d2b20;
+            border: 1px solid #5f4b62;
+            border-radius: 30px;
+            color: #fcd5d5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .staff-logout-btn:hover {
+            background: #b02c3a40;
+            color: white;
+            border-color: #c5455a;
+        }
+
+        .staff-main-panel {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem 2.5rem;
+            background: #f5f9ff;
+            overflow-y: auto;
+            min-height: 100vh;
+        }
+
+        .staff-page {
+            display: none;
+            animation: fade 0.2s ease;
+        }
+        .staff-page.active-page { display: block; }
+
+        .staff-page-title {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .staff-page-title h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #0b223a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .date-badge {
+            background: white;
+            border-radius: 60px;
+            padding: 0.6rem 1.8rem;
+            box-shadow: 0 6px 14px #d9e5f0;
+            font-weight: 500;
+            color: #1f3d5e;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            background: #ffedd5;
+            color: #b45309;
+            border-radius: 40px;
+            padding: 6px 18px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .badge.green { background: #dcfce7; color: #166534; }
+
+        .verify-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .verify-table th {
+            text-align: left;
+            color: #2d4b71;
+            font-weight: 500;
+            font-size: 0.8rem;
+            padding-bottom: 12px;
+        }
+        .verify-table td {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2ecfc;
+        }
+        .status-tag {
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 30px;
+            padding: 4px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .status-tag.verified { background: #d1fae5; color: #065f46; }
+        .action-mini {
+            border: 1px solid #b9d2ef;
+            border-radius: 40px;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #1f4b7a;
+            cursor: pointer;
+            background: white;
+            transition: 0.1s;
+        }
+        .action-mini:hover { background: #e3efff; }
+
+        .fee-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f6fafe;
+            border-radius: 26px;
+            padding: 0.9rem 1.6rem;
+            margin-bottom: 0.8rem;
+        }
+        .fee-status {
+            border-radius: 40px;
+            padding: 5px 18px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .paid { background: #d1fae5; color: #166534; }
+        .pending { background: #ffedd5; color: #b45309; }
+        .overdue { background: #fee2e2; color: #b91c1c; }
+
+        .announce-item {
+            padding: 1rem 0;
+            border-bottom: 1px dashed #cbdff5;
+        }
+        .announce-item p { font-weight: 500; }
+        .ann-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: #3d6184;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        .search-section {
+            background: white;
+            border-radius: 36px;
+            padding: 2rem 2.2rem;
+            margin-top: 2rem;
+            box-shadow: 0 16px 30px #d4e0ed;
+        }
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.8rem;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 1rem 1.8rem;
+            border: 2px solid #deecfc;
+            border-radius: 60px;
+            font-size: 1rem;
+            background: #fbfdff;
+        }
+        .search-bar button {
+            background: #0b223a;
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 60px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .search-bar button:hover { background: #1b385b; }
+
+        .filter-chips {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .chip {
+            background: #edf4fd;
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1f3d5e;
+            cursor: pointer;
+            transition: 0.1s;
+            border: 1px solid transparent;
+        }
+        .chip:hover { background: #d6e7ff; border-color: #819eb9; }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 1rem;
+        }
+        .student-card {
+            background: #f6fbff;
+            border-radius: 28px;
+            padding: 1.2rem;
+            border: 1px solid #d4e4fb;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .avatar {
+            width: 58px;
+            height: 58px;
+            background: linear-gradient(145deg, #0b223a, #244b74);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.4rem;
+            box-shadow: 0 6px 12px #0a1f3350;
+        }
+        .student-info h4 { font-weight: 700; }
+        .student-info p { font-size: 0.8rem; color: #2e4d73; }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #0b223a;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 60px;
+            box-shadow: 0 14px 28px #0b223a80;
+            font-weight: 500;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+
+        hr { border: 1px solid #e0edfc; margin: 2rem 0; }
+
+        
+        .portal-selector {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .portal-btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #e0e0e0;
+        }
+        .portal-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 1001;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .staff-sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 1001;
+            }
+            .staff-sidebar.active {
+                transform: translateX(0);
+            }
+            .staff-main-panel {
+                margin-left: 0;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 10rem;
+            }
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            .mobile-menu-btn {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="toastMessage" class="toast">✨ action complete</div>
+
+    
+    <div id="landingPage" class="page active">
+        <nav class="navbar">
+            <div class="logo" onclick="showPage('landingPage')">Uni<span>Sphere</span></div>
+            <button class="mobile-menu-btn" style="display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer;" onclick="toggleMobileMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#features" onclick="scrollToFeatures()">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#" class="btn-primary" onclick="showPage('loginPage')">Login</a></li>
+                <li><a href="#" class="btn-primary" style="background-color: var(--success-color);" onclick="showPage('admissionPage')">Admission 2026-27</a></li>
+                <li><a href="#" class="btn-primary" style="background-color: #0b223a;" onclick="showPage('staffPortalPage')">Staff Portal</a></li>
+            </ul>
+        </nav>
+
+        <header class="hero">
+            <div class="hero-content">
+                <h1>Welcome to UniSphere</h1>
+                <p>Your comprehensive university management solution for students, faculty, and parents. Apply for admission 2026-27 now!</p>
+                <button class="btn-hero" onclick="showPage('loginPage')">Get Started →</button>
+                <button class="btn-hero" style="background-color: var(--success-color); margin-left: 1rem;" onclick="showPage('admissionPage')">Apply Now</button>
+            </div>
+            <div class="hero-image">
+                <div class="feature-icon">🏛️</div>
+            </div>
+        </header>
+
+        <section id="features" class="features">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Attendance Tracking</h3>
+                    <p>Real-time attendance monitoring for students and staff.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Grade Management</h3>
+                    <p>Access marks, transcripts, and academic progress.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3>Hostel Management</h3>
+                    <p>Apply for accommodation and manage fees.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>24/7 AI Chatbot</h3>
+                    <p>Instant answers to your queries anytime.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Admission 2026-27</h3>
+                    <p>Apply online for undergraduate programs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3>Staff Portal</h3>
+                    <p>Dedicated interface for faculty and administrators.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 2rem; background: var(--secondary-color); color: white;">
+            <p>&copy; 2026 UniSphere. All rights reserved. Unified University Portal</p>
+        </footer>
+    </div>
+
+    
+    <div id="loginPage" class="page">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="logo" onclick="showPage('landingPage')" style="cursor: pointer; text-align: center;">Uni<span>Sphere</span></div>
+                <h2>Welcome Back</h2>
+                <p class="subtitle">Select your role to continue</p>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="role-selector">
+                        <label class="role-option">
+                            <input type="radio" name="role" value="student" checked>
+                            <span class="role-label">Student</span>
+                        </label>
+                        <label class="role-option">
+                            <input type="radio" name="role" value="staff">
+                            <span class="role-label">Staff</span>
+                        </label>
+                        <label class="role-option">
+                            <input type="radio" name="role" value="parent">
+                            <span class="role-label">Parent</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+
+                    <button type="submit" class="btn-login">Log In</button>
+                </form>
+
+                <p class="register-link">Don't have an account? <a href="#">Contact Admin</a></p>
+                <p style="text-align: center; margin-top: 1rem;">
+                    <a href="#" onclick="showPage('landingPage')" style="color: var(--text-light);">← Back to Home</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="dashboardPage" class="page">
+        <div class="dashboard-container">
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo" onclick="showPage('landingPage')">Uni<span>Sphere</span></div>
+                </div>
+                <ul class="sidebar-menu">
+                    <li class="active" onclick="showDashboardSection('overview')"><a href="#"><span class="icon">📊</span> Dashboard</a></li>
+                    <li onclick="showDashboardSection('attendance')"><a href="#"><span class="icon">📋</span> Attendance</a></li>
+                    <li onclick="showDashboardSection('grades')"><a href="#"><span class="icon">📝</span> Grades</a></li>
+                    <li onclick="showDashboardSection('admission')"><a href="#"><span class="icon">📚</span> Admission form</a></li>
+                    <li onclick="showDashboardSection('fees')"><a href="#"><span class="icon">💰</span> Fees</a></li>
+                    <li onclick="showDashboardSection('hostel')"><a href="#"><span class="icon">🏠</span> Hostel</a></li>
+                    <li onclick="showDashboardSection('documents')"><a href="#"><span class="icon">📄</span> Documents</a></li>
+                    <li onclick="showPage('chatbotPage')"><a href="#"><span class="icon">🤖</span> Chatbot</a></li>
+                
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <nav class="dashboard-nav">
+                    <div class="nav-left">
+                        <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()">☰</button>
+                        <h2 id="dashboardTitle">Dashboard Overview</h2>
+                    </div>
+                    <div class="nav-right">
+                        <span class="user-role" id="userRoleDisplay">Student</span>
+                        <div class="user-profile">
+                            <span id="userNameDisplay">User</span>
+                        </div>
+                        <button class="logout-btn" onclick="logout()">Logout</button>
+                    </div>
+                </nav>
+
+                
+                <div id="overviewSection" class="dashboard-section">
+                    <div class="dashboard-cards">
+                        <div class="card">
+                            <h3>Welcome back, <span id="welcomeName">User</span>!</h3>
+                            <p>Role: <strong id="welcomeRole">Student</strong></p>
+                        </div>
+                        <div class="card">
+                            <h3>Attendance</h3>
+                            <p style="font-size: 2rem; color: var(--primary-color);">85%</p>
+                            <p>Overall attendance</p>
+                        </div>
+                        <div class="card">
+                            <h3>Current CGPA</h3>
+                            <p style="font-size: 2rem; color: var(--success-color);">8.2</p>
+                            <p>Out of 10</p>
+                        </div>
+                    </div>
+
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Course</th>
+                                    <th>Attendance</th>
+                                    <th>Grade</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Computer Science 101</td>
+                                    <td>90%</td>
+                                    <td>A</td>
+                                    <td style="color: var(--success-color);">Completed</td>
+                                </tr>
+                                <tr>
+                                    <td>Mathematics II</td>
+                                    <td>75%</td>
+                                    <td>B+</td>
+                                    <td style="color: var(--warning-color);">In Progress</td>
+                                </tr>
+                                <tr>
+                                    <td>Physics Lab</td>
+                                    <td>82%</td>
+                                    <td>B</td>
+                                    <td style="color: var(--warning-color);">In Progress</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="attendanceSection" class="dashboard-section" style="display: none;">
+                    <div class="card">
+                        <h3>Attendance Records</h3>
+                        <div class="data-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Course</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2023-10-15</td>
+                                        <td>Computer Science 101</td>
+                                        <td style="color: var(--success-color);">Present</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-10-14</td>
+                                        <td>Mathematics II</td>
+                                        <td style="color: var(--success-color);">Present</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2023-10-13</td>
+                                        <td>Physics Lab</td>
+                                        <td style="color: var(--danger-color);">Absent</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="gradesSection" class="dashboard-section" style="display: none;">
+                    <div class="card">
+                        <h3>Grade Report</h3>
+                        <div class="data-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Course</th>
+                                        <th>Credits</th>
+                                        <th>Grade</th>
+                                        <th>Points</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Computer Science 101</td>
+                                        <td>4</td>
+                                        <td>A</td>
+                                        <td>4.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mathematics II</td>
+                                        <td>3</td>
+                                        <td>B+</td>
+                                        <td>3.3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Physics Lab</td>
+                                        <td>2</td>
+                                        <td>B</td>
+                                        <td>3.0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="feesSection" class="dashboard-section" style="display: none;">
+                    <div class="card">
+                        <h3>Fee Details</h3>
+
+                        <div class="dashboard-cards">
+                            <div class="card">
+                                <h3>Total Semester Fee</h3>
+                                <p style="font-size: 2rem; color: var(--primary-color);">35,000</p>
+                            </div>
+
+                            <div class="card">
+                                <h3>Amount Paid</h3>
+                                <p style="font-size: 2rem; color: var(--success-color);">30,000</p>
+                            </div>
+
+                            <div class="card">
+                                <h3>Pending Amount</h3>
+                                <p style="font-size: 2rem; color: var(--danger-color);">5,000</p>
+                            </div>
+                        </div>
+
+                        <div class="data-table" style="margin-top: 2rem;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Payment Date</th>
+                                        <th>Transaction ID</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>01-02-25</td>
+                                        <td>TXN123456</td>
+                                        <td>25,000</td>
+                                        <td style="color: var(--success-color);">Paid</td>
+                                    </tr>
+                                    <tr>
+                                        <td>05-09-25</td>
+                                        <td>TXN123789</td>
+                                        <td>5,000</td>
+                                        <td style="color: var(--success-color);">Paid</td>
+                                    </tr>
+                                    <tr>
+                                        <td>08-09-25</td>
+                                        <td>-</td>
+                                        <td>5,000</td>
+                                        <td style="color: var(--danger-color);">Due</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="margin-top: 2rem; text-align: right;">
+                            <button class="btn-login" onclick="alert('Redirecting to payment gateway...')">
+                                Pay Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="hostelSection" class="dashboard-section" style="display: none;">
+                    <div class="form-container">
+                        <h3 class="form-title">Hostel Application Form</h3>
+                        <form id="hostelApplicationForm" onsubmit="submitHostelApplication(event)">
+                            <div class="form-group">
+                                <label for="hostelName">Select Hostel</label>
+                                <select id="hostelName" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    <option value="boys-hostel-1">Boys Hostel 1</option>
+                                    <option value="boys-hostel-2">Boys Hostel 2</option>
+                                    <option value="girls-hostel-1">Girls Hostel 1</option>
+                                    <option value="girls-hostel-2">Girls Hostel 2</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="roomType">Room Type</label>
+                                <select id="roomType" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    <option value="single">Single Room</option>
+                                    <option value="double">Double Sharing</option>
+                                    <option value="triple">Triple Sharing</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="duration">Duration (months)</label>
+                                <input type="number" id="duration" min="1" max="12" value="6" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                            </div>
+                            <div class="form-group">
+                                <label for="specialRequests">Special Requests</label>
+                                <textarea id="specialRequests" rows="4" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px;"></textarea>
+                            </div>
+                            <button type="submit" class="btn-login">Submit Application</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="admissionSection" class="dashboard-section" style="display: none;">
+                    <div class="max-w-4xl mx-auto">
+                       
+                        <div class="text-center mb-8">
+                            <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-600 text-white rounded-2xl shadow-lg mb-4">
+                                <i class="fas fa-university text-3xl"></i>
+                            </div>
+                            <h1 class="text-3xl font-bold text-slate-800">University Admission 2026-27</h1>
+                            <p class="text-slate-500 mt-2">Global Institute of Technology & Excellence</p>
+                        </div>
+
+                        
+                        <div class="mb-8 px-4">
+                            <div class="flex justify-between relative mb-2">
+                                <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-200 -z-10 -translate-y-1/2 rounded-full"></div>
+                                <div id="progressLine" class="absolute top-1/2 left-0 w-0 h-1 bg-blue-500 -z-10 -translate-y-1/2 rounded-full progress-bar"></div>
+                                
+                                <div class="step-icon w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shadow-md transition-all duration-300 border-4 border-white" data-step="1">1</div>
+                                <div class="step-icon w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold transition-all duration-300 border-4 border-white" data-step="2">2</div>
+                                <div class="step-icon w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold transition-all duration-300 border-4 border-white" data-step="3">3</div>
+                                <div class="step-icon w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold transition-all duration-300 border-4 border-white" data-step="4">4</div>
+                            </div>
+                            <div class="flex justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                                <span>Personal</span>
+                                <span>Academic</span>
+                                <span>Documents</span>
+                                <span>Finalize</span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="glass-card shadow-2xl rounded-3xl overflow-hidden mb-6">
+                            <form id="admissionForm" class="p-6 md:p-10">
+                                
+                                <div id="step1" class="step-active">
+                                    <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                                        <i class="fas fa-user-circle text-blue-500"></i> Personal Information
+                                    </h2>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="space-y-1">
+                                            <label class="text-sm font-semibold text-slate-600">Full Name (As per Marksheet) <span class="text-red-400">*</span></label>
+                                            <input type="text" name="fullName" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label class="text-sm font-semibold text-slate-600">Email Address <span class="text-red-400">*</span></label>
+                                            <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label class="text-sm font-semibold text-slate-600">Mobile Number <span class="text-red-400">*</span></label>
+                                            <input type="tel" name="phone" required placeholder="00000 00000" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label class="text-sm font-semibold text-slate-600">Date of Birth <span class="text-red-400">*</span></label>
+                                            <input type="date" name="dob" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label class="text-sm font-semibold text-slate-600">Gender</label>
+                                            <select name="gender" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label class="text-sm font-semibold text-slate-600">Blood Group</label>
+                                            <select name="bloodGroup" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                                <option value="">Select</option>
+                                                <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+                                                <option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
+                                            </select>
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label class="text-sm font-semibold text-slate-600">Nationality</label>
+                                            <input type="text" name="nationality" value="Indian" placeholder="Indian" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label class="text-sm font-semibold text-slate-600">Religion</label>
+                                            <input type="text" name="religion" placeholder="e.g. Hindu, Muslim, Sikh, Christian" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label class="text-sm font-semibold text-slate-600">Category</label>
+                                            <select name="category" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                                <option value="General">General</option>
+                                                <option value="OBC">OBC</option>
+                                                <option value="SC">SC</option>
+                                                <option value="ST">ST</option>
+                                                <option value="EWS">EWS</option>
+                                            </select>
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label class="text-sm font-semibold text-slate-600">Caste (if applicable)</label>
+                                            <input type="text" name="caste" placeholder="e.g. Maratha, Yadav, etc." class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label class="text-sm font-semibold text-slate-600">Aadhaar Number</label>
+                                            <input type="text" name="aadhaar" maxlength="12" placeholder="1234 5678 9012" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                        </div>
+                                        <div class="space-y-1 md:col-span-2">
+                                            <label class="text-sm font-semibold text-slate-600">Passport-size Photo Upload (JPG/PNG)</label>
+                                            <div class="photo-preview-area">
+                                                <div class="relative flex-1">
+                                                    <input type="file" name="passportPhoto" accept="image/png, image/jpeg" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" onchange="updatePhotoPreview(this)">
+                                                </div>
+                                                <div id="photoPreview" class="w-14 h-14 rounded-full bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400 overflow-hidden">
+                                                    <i class="fas fa-camera text-lg"></i>
+                                                </div>
+                                            </div>
+                                            <p class="text-xs text-slate-400 mt-1">Max 1MB, square preferred</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div id="step2" class="step-inactive">
+                                    <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                                        <i class="fas fa-graduation-cap text-blue-500"></i> Academic Background
+                                    </h2>
+                                    <div class="space-y-8">
+                                        
+                                        <div class="p-6 bg-blue-50/50 rounded-2xl border border-blue-100">
+                                            <h3 class="font-bold text-blue-800 mb-4 flex items-center gap-2">10th Standard (SSC)</h3>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                                <div class="space-y-1">
+                                                    <label class="text-xs font-bold text-slate-500 uppercase">Board</label>
+                                                    <input type="text" name="sscBoard" class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-blue-500">
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <label class="text-xs font-bold text-slate-500 uppercase">Year</label>
+                                                    <input type="number" name="sscYear" class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-blue-500">
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <label class="text-xs font-bold text-slate-500 uppercase">Percentage</label>
+                                                    <input type="text" name="sscMarks" class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-blue-500">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="p-6 bg-orange-50/50 rounded-2xl border border-orange-100">
+                                            <h3 class="font-bold text-orange-800 mb-4 flex items-center gap-2">12th Standard (HSC)</h3>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                                <div class="space-y-1">
+                                                    <label class="text-xs font-bold text-slate-500 uppercase">Stream</label>
+                                                    <select name="hscStream" class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-blue-500">
+                                                        <option>Science</option>
+                                                        <option>Commerce</option>
+                                                        <option>Arts</option>
+                                                        <option>Diploma</option>
+                                                    </select>
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <label class="text-xs font-bold text-slate-500 uppercase">PCM %</label>
+                                                    <input type="text" name="pcmMarks" class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-blue-500">
+                                                </div>
+                                                <div class="space-y-1">
+                                                    <label class="text-xs font-bold text-slate-500 uppercase">Entrance Score</label>
+                                                    <input type="text" name="entranceScore" placeholder="MHT-CET / JEE" class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-blue-500">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div id="step3" class="step-inactive">
+                                    <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                                        <i class="fas fa-file-upload text-blue-500"></i> Digital Documents
+                                    </h2>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="p-4 border-2 border-dashed border-slate-200 rounded-2xl hover:border-blue-400 transition-colors group cursor-pointer relative">
+                                            <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" onchange="updateFileLabel(this)">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500">
+                                                    <i class="fas fa-id-card text-xl"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="text-sm font-bold text-slate-700">Aadhaar Card</p>
+                                                    <p class="text-xs text-slate-400 file-name">Click to upload (PDF/JPG)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-4 border-2 border-dashed border-slate-200 rounded-2xl hover:border-blue-400 transition-colors group cursor-pointer relative">
+                                            <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" onchange="updateFileLabel(this)">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500">
+                                                    <i class="fas fa-file-alt text-xl"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="text-sm font-bold text-slate-700">12th Marksheet</p>
+                                                    <p class="text-xs text-slate-400 file-name">Click to upload (PDF/JPG)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-4 border-2 border-dashed border-slate-200 rounded-2xl hover:border-blue-400 transition-colors group cursor-pointer relative">
+                                            <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" onchange="updateFileLabel(this)">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500">
+                                                    <i class="fas fa-portrait text-xl"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="text-sm font-bold text-slate-700">Passport Photo</p>
+                                                    <p class="text-xs text-slate-400 file-name">Click to upload (JPG)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-4 border-2 border-dashed border-slate-200 rounded-2xl hover:border-blue-400 transition-colors group cursor-pointer relative">
+                                            <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" onchange="updateFileLabel(this)">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500">
+                                                    <i class="fas fa-university text-xl"></i>
+                                                </div>
+                                                <div>
+                                                    <p class="text-sm font-bold text-slate-700">LC / Transfer Certificate</p>
+                                                    <p class="text-xs text-slate-400 file-name">Click to upload (PDF)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div id="step4" class="step-inactive">
+                                    <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                                        <i class="fas fa-check-double text-blue-500"></i> Final Confirmation
+                                    </h2>
+                                    
+                                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 mb-6">
+                                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                                            I hereby declare that the particulars provided by me in this application are true and correct to the best of my knowledge. I understand that any false information will lead to immediate cancellation of admission.
+                                        </p>
+                                        <label class="flex items-center gap-3 cursor-pointer">
+                                            <input type="checkbox" required class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                                            <span class="text-sm font-semibold text-slate-700">I Agree to the Terms & Conditions</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="space-y-4">
+                                        <label class="text-sm font-bold text-slate-600 block">Digital Signature Pad</label>
+                                        <canvas id="signaturePad" class="signature-pad w-full h-40 rounded-2xl"></canvas>
+                                        <button type="button" onclick="clearSignature()" class="text-xs font-bold text-blue-600 uppercase tracking-widest hover:text-blue-800">Clear Pad</button>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="mt-10 pt-6 border-t border-slate-100 flex justify-between items-center">
+                                    <button type="button" id="prevBtn" onclick="changeStep(-1)" class="px-6 py-3 rounded-xl font-bold text-slate-500 hover:bg-slate-100 transition-colors opacity-0 pointer-events-none">
+                                        <i class="fas fa-arrow-left mr-2"></i> Previous
+                                    </button>
+                                    <button type="button" id="nextBtn" onclick="changeStep(1)" class="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 transition-all">
+                                        Next Step <i class="fas fa-arrow-right ml-2"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        
+                        <div id="successModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+                            <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl scale-90 transition-transform duration-300" id="modalContent">
+                                <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <i class="fas fa-check text-4xl"></i>
+                                </div>
+                                <h2 class="text-2xl font-bold text-slate-800 mb-2">Application Submitted!</h2>
+                                <p class="text-slate-500 mb-6">Your admission form for 2026-27 has been received. Our team will verify your documents shortly.</p>
+                                <div class="bg-slate-50 p-4 rounded-xl mb-6 text-left">
+                                    <p class="text-xs font-bold text-slate-400 uppercase mb-1">Application ID</p>
+                                    <p class="text-lg font-mono font-bold text-slate-700">GU2026-X892-AP01</p>
+                                </div>
+                                <button onclick="closeAdmissionModal()" class="w-full bg-slate-800 text-white py-4 rounded-2xl font-bold hover:bg-slate-900 transition-colors">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="documentsSection" class="dashboard-section" style="display: none;">
+                    <div class="form-container">
+                        <h3 class="form-title">Document Upload</h3>
+                        <form id="documentUploadForm" onsubmit="uploadDocument(event)">
+                            <div class="form-group">
+                                <label for="documentType">Document Type</label>
+                                <select id="documentType" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                                    <option value="id-card">ID Card</option>
+                                    <option value="transcript">Transcript</option>
+                                    <option value="fee-receipt">Fee Receipt</option>
+                                    <option value="hostel-form">Hostel Form</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="documentFile">Choose File</label>
+                                <input type="file" id="documentFile" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px;">
+                            </div>
+                            <div class="form-group">
+                                <label for="documentDescription">Description</label>
+                                <textarea id="documentDescription" rows="3" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px;"></textarea>
+                            </div>
+                            <button type="submit" class="btn-login">Upload Document</button>
+                        </form>
+                    </div>
+                </div>
+
+                <footer class="dashboard-footer">
+                    <p>&copy; 2026 UniSphere. All rights reserved.</p>
+                    <p>Need help? <a href="#" onclick="showPage('chatbotPage')">Ask our chatbot</a></p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="chatbotPage" class="page">
+        <div style="padding: 1rem;">
+            <button class="btn-hero" onclick="showPage('dashboardPage')" style="margin-bottom: 1rem;">← Back to Dashboard</button>
+        </div>
+        <div class="chatbot-container">
+            <div class="chat-header">
+                <h2>UniBot Assistant</h2>
+                <p>Your Smart Guide to Campus Life & Academics.</p>
+            </div>
+           
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="message-content">
+                        Hello! I'm here to assist you with any questions related to college hostel life and academics. How can I help you today?
+                    </div>
+                    <div class="message-time">Just now</div>
+                </div>
+            </div>
+
+            <div class="chat-suggestions">
+                <span class="suggestion-chip" onclick="sendSuggestion('What is my attendance?')">📋 My Attendance</span>
+                <span class="suggestion-chip" onclick="sendSuggestion('Show my grades')">📝 My Grades</span>
+                <span class="suggestion-chip" onclick="sendSuggestion('What are my fee details?')">💰 Fee Details</span>
+                <span class="suggestion-chip" onclick="sendSuggestion('How to apply for hostel?')">🏠 Hostel Info</span>
+                <span class="suggestion-chip" onclick="sendSuggestion('I want to fill the admission form')">📝 Admission Form</span>
+                <span class="suggestion-chip" onclick="sendSuggestion('How to apply for scholarship?')">🎓 Scholarship Form</span>
+                <span class="suggestion-chip" onclick="sendSuggestion('When are the exams?')">📅 Exam Schedule</span>
+                <span class="suggestion-chip" onclick="sendSuggestion('What documents are required?')">📂 Required Documents</span>
+                <span class="suggestion-chip" onclick="sendSuggestion('How to apply for train concession form?')">🚆 Train Concession</span>
+                <span class="suggestion-chip" onclick="sendSuggestion('How can I get my library card?')">📚 Library Card</span>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Type your message here..." onkeypress="handleChatKeyPress(event)">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="admissionPage" class="page">
+        <div style="padding: 1rem;">
+            <button class="btn-hero" onclick="showPage('landingPage')" style="margin-bottom: 1rem;">← Back to Home</button>
+        </div>
+        <div class="max-w-4xl mx-auto">
+            
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-600 text-white rounded-2xl shadow-lg mb-4">
+                    <i class="fas fa-university text-3xl"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-slate-800">University Admission 2026-27</h1>
+                <p class="text-slate-500 mt-2">Global Institute of Technology & Excellence</p>
+            </div>
+
+            
+            <div class="mb-8 px-4">
+                <div class="flex justify-between relative mb-2">
+                    <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-200 -z-10 -translate-y-1/2 rounded-full"></div>
+                    <div id="progressLine2" class="absolute top-1/2 left-0 w-0 h-1 bg-blue-500 -z-10 -translate-y-1/2 rounded-full progress-bar"></div>
+                    
+                    <div class="step-icon2 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shadow-md transition-all duration-300 border-4 border-white" data-step="1">1</div>
+                    <div class="step-icon2 w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold transition-all duration-300 border-4 border-white" data-step="2">2</div>
+                    <div class="step-icon2 w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold transition-all duration-300 border-4 border-white" data-step="3">3</div>
+                    <div class="step-icon2 w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold transition-all duration-300 border-4 border-white" data-step="4">4</div>
+                </div>
+                <div class="flex justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    <span>Personal</span>
+                    <span>Academic</span>
+                    <span>Documents</span>
+                    <span>Finalize</span>
+                </div>
+            </div>
+
+            
+            <div class="glass-card shadow-2xl rounded-3xl overflow-hidden mb-6">
+                <form id="admissionForm2" class="p-6 md:p-10">
+                    
+                    <div id="step1-2" class="step-active">
+                        <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                            <i class="fas fa-user-circle text-blue-500"></i> Personal Information
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600">Full Name (As per Marksheet) <span class="text-red-400">*</span></label>
+                                <input type="text" name="fullName" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600">Email Address <span class="text-red-400">*</span></label>
+                                <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600">Mobile Number <span class="text-red-400">*</span></label>
+                                <input type="tel" name="phone" required placeholder="00000 00000" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600">Date of Birth <span class="text-red-400">*</span></label>
+                                <input type="date" name="dob" required class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600">Gender</label>
+                                <select name="gender" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600">Blood Group</label>
+                                <select name="bloodGroup" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                    <option value="">Select</option>
+                                    <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+                                    <option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
+                                </select>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600">Nationality</label>
+                                <input type="text" name="nationality" value="Indian" placeholder="Indian" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600">Religion</label>
+                                <input type="text" name="religion" placeholder="e.g. Hindu, Muslim, Sikh, Christian" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600">Category</label>
+                                <select name="category" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                                    <option value="General">General</option>
+                                    <option value="OBC">OBC</option>
+                                    <option value="SC">SC</option>
+                                    <option value="ST">ST</option>
+                                    <option value="EWS">EWS</option>
+                                </select>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600">Caste (if applicable)</label>
+                                <input type="text" name="caste" placeholder="e.g. Maratha, Yadav, etc." class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-sm font-semibold text-slate-600">Aadhaar Number</label>
+                                <input type="text" name="aadhaar" maxlength="12" placeholder="1234 5678 9012" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 transition-all">
+                            </div>
+                            <div class="space-y-1 md:col-span-2">
+                                <label class="text-sm font-semibold text-slate-600">Passport-size Photo Upload (JPG/PNG)</label>
+                                <div class="photo-preview-area">
+                                    <div class="relative flex-1">
+                                        <input type="file" name="passportPhoto" accept="image/png, image/jpeg" class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" onchange="updatePhotoPreview2(this)">
+                                    </div>
+                                    <div id="photoPreview2" class="w-14 h-14 rounded-full bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400 overflow-hidden">
+                                        <i class="fas fa-camera text-lg"></i>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-1">Max 1MB, square preferred</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div id="step2-2" class="step-inactive">
+                        <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                            <i class="fas fa-graduation-cap text-blue-500"></i> Academic Background
+                        </h2>
+                        <div class="space-y-8">
+                            
+                            <div class="p-6 bg-blue-50/50 rounded-2xl border border-blue-100">
+                                <h3 class="font-bold text-blue-800 mb-4 flex items-center gap-2">10th Standard (SSC)</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="space-y-1">
+                                        <label class="text-xs font-bold text-slate-500 uppercase">Board</label>
+                                        <input type="text" name="sscBoard" class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-blue-500">
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="text-xs font-bold text-slate-500 uppercase">Year</label>
+                                        <input type="number" name="sscYear" class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-blue-500">
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="text-xs font-bold text-slate-500 uppercase">Percentage</label>
+                                        <input type="text" name="sscMarks" class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-blue-500">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-6 bg-orange-50/50 rounded-2xl border border-orange-100">
+                                <h3 class="font-bold text-orange-800 mb-4 flex items-center gap-2">12th Standard (HSC)</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="space-y-1">
+                                        <label class="text-xs font-bold text-slate-500 uppercase">Stream</label>
+                                        <select name="hscStream" class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-blue-500">
+                                            <option>Science</option>
+                                            <option>Commerce</option>
+                                            <option>Arts</option>
+                                            <option>Diploma</option>
+                                        </select>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="text-xs font-bold text-slate-500 uppercase">PCM %</label>
+                                        <input type="text" name="pcmMarks" class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-blue-500">
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="text-xs font-bold text-slate-500 uppercase">Entrance Score</label>
+                                        <input type="text" name="entranceScore" placeholder="MHT-CET / JEE" class="w-full px-4 py-2 rounded-lg border border-slate-200 focus:border-blue-500">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                    <div id="step3-2" class="step-inactive">
+                        <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                            <i class="fas fa-file-upload text-blue-500"></i> Digital Documents
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 border-2 border-dashed border-slate-200 rounded-2xl hover:border-blue-400 transition-colors group cursor-pointer relative">
+                                <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" onchange="updateFileLabel2(this)">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500">
+                                        <i class="fas fa-id-card text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-slate-700">Aadhaar Card</p>
+                                        <p class="text-xs text-slate-400 file-name2">Click to upload (PDF/JPG)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 border-2 border-dashed border-slate-200 rounded-2xl hover:border-blue-400 transition-colors group cursor-pointer relative">
+                                <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" onchange="updateFileLabel2(this)">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500">
+                                        <i class="fas fa-file-alt text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-slate-700">12th Marksheet</p>
+                                        <p class="text-xs text-slate-400 file-name2">Click to upload (PDF/JPG)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 border-2 border-dashed border-slate-200 rounded-2xl hover:border-blue-400 transition-colors group cursor-pointer relative">
+                                <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" onchange="updateFileLabel2(this)">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500">
+                                        <i class="fas fa-portrait text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-slate-700">Passport Photo</p>
+                                        <p class="text-xs text-slate-400 file-name2">Click to upload (JPG)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 border-2 border-dashed border-slate-200 rounded-2xl hover:border-blue-400 transition-colors group cursor-pointer relative">
+                                <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" onchange="updateFileLabel2(this)">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500">
+                                        <i class="fas fa-university text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-slate-700">LC / Transfer Certificate</p>
+                                        <p class="text-xs text-slate-400 file-name2">Click to upload (PDF)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div id="step4-2" class="step-inactive">
+                        <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                            <i class="fas fa-check-double text-blue-500"></i> Final Confirmation
+                        </h2>
+                        
+                        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 mb-6">
+                            <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                                I hereby declare that the particulars provided by me in this application are true and correct to the best of my knowledge. I understand that any false information will lead to immediate cancellation of admission.
+                            </p>
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                <input type="checkbox" required class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                                <span class="text-sm font-semibold text-slate-700">I Agree to the Terms & Conditions</span>
+                            </label>
+                        </div>
+
+                        <div class="space-y-4">
+                            <label class="text-sm font-bold text-slate-600 block">Digital Signature Pad</label>
+                            <canvas id="signaturePad2" class="signature-pad w-full h-40 rounded-2xl"></canvas>
+                            <button type="button" onclick="clearSignature2()" class="text-xs font-bold text-blue-600 uppercase tracking-widest hover:text-blue-800">Clear Pad</button>
+                        </div>
+                    </div>
+
+                    
+                    <div class="mt-10 pt-6 border-t border-slate-100 flex justify-between items-center">
+                        <button type="button" id="prevBtn2" onclick="changeStep2(-1)" class="px-6 py-3 rounded-xl font-bold text-slate-500 hover:bg-slate-100 transition-colors opacity-0 pointer-events-none">
+                            <i class="fas fa-arrow-left mr-2"></i> Previous
+                        </button>
+                        <button type="button" id="nextBtn2" onclick="changeStep2(1)" class="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 transition-all">
+                            Next Step <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            
+            <div id="successModal2" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+                <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl scale-90 transition-transform duration-300" id="modalContent2">
+                    <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-check text-4xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Application Submitted!</h2>
+                    <p class="text-slate-500 mb-6">Your admission form for 2026-27 has been received. Our team will verify your documents shortly.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl mb-6 text-left">
+                        <p class="text-xs font-bold text-slate-400 uppercase mb-1">Application ID</p>
+                        <p class="text-lg font-mono font-bold text-slate-700">GU2026-X892-AP01</p>
+                    </div>
+                    <button onclick="closeAdmissionModal2()" class="w-full bg-slate-800 text-white py-4 rounded-2xl font-bold hover:bg-slate-900 transition-colors">Return to Home</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="staffPortalPage" class="page">
+        <div class="dashboard-container">
+       
+            <div class="staff-sidebar" id="staffSidebar">
+                <div class="staff-sidebar-header">
+                    <div class="staff-logo"><i class="fas fa-chalkboard-user"></i> Staff<span style="font-weight:300;">Sphere</span></div>
+                </div>
+                <div class="staff-badge">
+                    <i class="fas fa-user-tie"></i>
+                    <div class="staff-info">
+                        <h4 id="staffName">Meera Sharma</h4>
+                        <p><i class="far fa-id-card"></i> Senior admin · ID: STF108</p>
+                    </div>
+                </div>
+
+                <div class="staff-nav-item active" data-staff-page="dashboard"><i class="fas fa-chart-pie"></i> Dashboard</div>
+                <div class="staff-nav-item" data-staff-page="verification"><i class="fas fa-file-signature"></i> Document verification</div>
+                <div class="staff-nav-item" data-staff-page="fee"><i class="fas fa-coins"></i> Fee monitoring</div>
+                <div class="staff-nav-item" data-staff-page="announcements"><i class="fas fa-bullhorn"></i> Announcements</div>
+                <div class="staff-nav-item" data-staff-page="search"><i class="fas fa-magnifying-glass"></i> Student search</div>
+                
+
+                <div class="staff-logout-btn" id="staffLogoutBtn"><i class="fas fa-arrow-right-from-bracket"></i> Log out</div>
+            </div>
+
+            
+            <div class="staff-main-panel" id="staffMainPanel">
+                
+                <div class="staff-page active-page" id="staffDashboardPage"></div>
+                
+                <div class="staff-page" id="staffVerificationPage"></div>
+                
+                <div class="staff-page" id="staffFeePage"></div>
+                
+                <div class="staff-page" id="staffAnnouncementsPage"></div>
+                
+                <div class="staff-page" id="staffSearchPage"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        let currentUser = null;
+        let currentStep = 1;
+        let currentStep2 = 1;
+        const totalSteps = 4;
+
+
+        let verificationData = [
+            { id: 1, name: 'Aditya S.', enroll: 'EN2312', docs: '10th, 12th', status: 'pending', verifiedBy: null },
+            { id: 2, name: 'Neha M.', enroll: 'CS2217', docs: 'All + migration', status: 'verified', verifiedBy: 'Meera' },
+            { id: 3, name: 'Rohan J.', enroll: 'EC2409', docs: '12th, entrance', status: 'pending', verifiedBy: null },
+            { id: 4, name: 'Isha K.', enroll: 'ME2319', docs: 'caste, income', status: 'verified', verifiedBy: 'Meera' },
+            { id: 5, name: 'Karan D.', enroll: 'ME2301', docs: '10th, 12th, income', status: 'pending', verifiedBy: null },
+        ];
+
+        let feeData = [
+            { name: 'Pooja R.', branch: 'CSE', amount: 42000, status: 'paid' },
+            { name: 'Karan D.', branch: 'MECH', amount: 42000, status: 'pending' },
+            { name: 'Simran B.', branch: 'IT', amount: 41000, status: 'overdue' },
+            { name: 'Yash P.', branch: 'CIVIL', amount: 39000, status: 'overdue' },
+            { name: 'Neha M.', branch: 'CS', amount: 42000, status: 'paid' },
+            { name: 'Anjali K.', branch: 'CSE', amount: 42000, status: 'pending' },
+        ];
+
+        let announcements = [
+            { id: 1, title: 'Hostel allocation schedule released', date: '17 Feb 2026', dept: 'registrar', icon: 'star' },
+            { id: 2, title: 'Final fee deadline extended to 25 Feb', date: '15 Feb 2026', dept: 'accounts', icon: 'bell' },
+            { id: 3, title: 'Internal assessment guidelines published', date: '12 Feb 2026', dept: 'academic', icon: 'file-pdf' },
+            { id: 4, title: 'Campus drive on 28 Feb – register soon', date: '18 Feb 2026', dept: 'placement', icon: 'briefcase' },
+        ];
+
+        const studentMaster = [
+            { name: 'Aditya Sharma', enroll: 'EN2312', branch: 'Computer', docsStatus: 'verified', feeStatus: 'paid', avatar: 'AS' },
+            { name: 'Neha Mishra', enroll: 'CS2217', branch: 'IT', docsStatus: 'verified', feeStatus: 'pending', avatar: 'NM' },
+            { name: 'Rohan Jaiswal', enroll: 'EC2409', branch: 'E&TC', docsStatus: 'pending', feeStatus: 'paid', avatar: 'RJ' },
+            { name: 'Isha Khanna', enroll: 'ME2319', branch: 'Mechanical', docsStatus: 'verified', feeStatus: 'paid', avatar: 'IK' },
+            { name: 'Karan D.', enroll: 'ME2301', branch: 'Mechanical', docsStatus: 'pending', feeStatus: 'pending', avatar: 'KD' },
+            { name: 'Simran B.', enroll: 'IT2405', branch: 'IT', docsStatus: 'verified', feeStatus: 'overdue', avatar: 'SB' },
+            { name: 'Yash P.', enroll: 'CL2208', branch: 'Civil', docsStatus: 'verified', feeStatus: 'overdue', avatar: 'YP' },
+            { name: 'Pooja R.', enroll: 'CS2304', branch: 'CSE', docsStatus: 'verified', feeStatus: 'paid', avatar: 'PR' },
+            { name: 'Anjali K.', enroll: 'CS2410', branch: 'CSE', docsStatus: 'pending', feeStatus: 'pending', avatar: 'AK' },
+        ];
+
+        function showToast(msg) {
+            let t = document.getElementById('toastMessage');
+            t.textContent = msg || '✅ done';
+            t.style.opacity = '1';
+            setTimeout(() => t.style.opacity = '0', 2000);
+        }
+
+        
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            if (pageId === 'dashboardPage') {
+                loadDashboardData();
+            } else if (pageId === 'admissionPage') {
+                initAdmissionForm();
+            } else if (pageId === 'chatbotPage') {
+                initChatbot();
+            } else if (pageId === 'staffPortalPage') {
+                renderStaffDashboard();
+            }
+        }
+
+        
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+
+        function scrollToFeatures() {
+            document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        }
+
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const role = document.querySelector('input[name="role"]:checked').value;
+            
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            currentUser = {
+                email: email,
+                role: role,
+                name: email.split('@')[0],
+                loggedIn: true
+            };
+            
+            
+            sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+           
+            if (role === 'staff') {
+                showPage('staffPortalPage');
+            } else {
+                showPage('dashboardPage');
+            }
+        }
+
+        
+        function loadDashboardData() {
+            const userData = sessionStorage.getItem('currentUser');
+            if (userData) {
+                currentUser = JSON.parse(userData);
+                
+                
+                document.getElementById('userRoleDisplay').textContent = 
+                    currentUser.role.charAt(0).toUpperCase() + currentUser.role.slice(1);
+                document.getElementById('userNameDisplay').textContent = currentUser.name;
+                document.getElementById('welcomeName').textContent = currentUser.name;
+                document.getElementById('welcomeRole').textContent = 
+                    currentUser.role.charAt(0).toUpperCase() + currentUser.role.slice(1);
+                
+                
+                customizeDashboardForRole(currentUser.role);
+            }
+        }
+
+
+        function customizeDashboardForRole(role) {
+            const menuItems = document.querySelectorAll('.sidebar-menu li');
+            
+
+            if (role === 'student') {
+
+                menuItems.forEach(item => item.style.display = 'block');
+            } else if (role === 'staff') {
+
+                showPage('staffPortalPage');
+            } else if (role === 'parent') {
+
+                document.querySelectorAll('.sidebar-menu li').forEach(item => {
+                    if (!item.textContent.includes('Attendance') && !item.textContent.includes('Grades') && !item.textContent.includes('Chatbot')) {
+                        item.style.display = 'none';
+                    } else {
+                        item.style.display = 'block';
+                    }
+                });
+            }
+        }
+
+       
+        function showDashboardSection(section) {
+           
+            document.querySelectorAll('.dashboard-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+          
+            document.getElementById(section + 'Section').style.display = 'block';
+            
+
+            const titles = {
+                'overview': 'Dashboard Overview',
+                'attendance': 'Attendance Records',
+                'grades': 'Grade Report',
+                'admission': 'Admission Form',
+                'fees': 'Fee Details',
+                'hostel': 'Hostel Management',
+                'documents': 'Document Center'
+            };
+            document.getElementById('dashboardTitle').textContent = titles[section] || 'Dashboard';
+            
+            document.querySelectorAll('.sidebar-menu li').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+
+            if (section === 'admission') {
+                initAdmissionFormInDashboard();
+            }
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        function toggleStaffSidebar() {
+            document.getElementById('staffSidebar').classList.toggle('active');
+        }
+
+
+        function logout() {
+            sessionStorage.removeItem('currentUser');
+            currentUser = null;
+            showPage('landingPage');
+        }
+
+        function submitHostelApplication(event) {
+            event.preventDefault();
+            alert('Hostel application submitted successfully! You will receive a confirmation email shortly.');
+        }
+
+        function uploadDocument(event) {
+            event.preventDefault();
+            alert('Document uploaded successfully! It will be reviewed by the administration.');
+        }
+
+
+        function initChatbot() {
+            const messagesDiv = document.getElementById('chatMessages');
+            messagesDiv.innerHTML = '';
+            addMessage('Hello! I\'m here to assist you with any questions related to college hostel life and academics. How can I help you today?', 'bot');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, 'user');
+                input.value = '';
+                
+                setTimeout(() => {
+                    const botResponse = getBotResponse(message);
+                    addMessage(botResponse, 'bot');
+                }, 800);
+            }
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendSuggestion(suggestion) {
+            addMessage(suggestion, 'user');
+            setTimeout(() => {
+                const botResponse = getBotResponse(suggestion);
+                addMessage(botResponse, 'bot');
+            }, 600);
+        }
+
+        function addMessage(text, sender) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+           
+            messageDiv.className = `message ${sender}`;
+            messageDiv.innerHTML = `
+                <div class="message-content">${text}</div>
+                <div class="message-time">${time}</div>
+            `;
+           
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function getBotResponse(input) {
+            const lowerInput = input.toLowerCase();
+           
+            if (lowerInput.includes('attendance')) {
+                return 'Your overall attendance is currently <strong>85%</strong>. <br>Computer Science: 90%<br>Math: 75%';
+            }
+            else if (lowerInput.includes('grade') || lowerInput.includes('result') || lowerInput.includes('cgpa')) {
+                return 'Your current CGPA is <strong>8.6</strong>. You secured an "A" grade in Computer Science and Technology.';
+            }
+            else if (lowerInput.includes('hostel') || lowerInput.includes('room')) {
+                return 'Hostel applications are open! We have Single, Double, and Triple sharing rooms available. You can apply via the dashboard.';
+            }
+            else if (lowerInput.includes('fee') || lowerInput.includes('payment')) {
+                return `
+                <strong>Semester Fee Details:</strong><br><br>
+                🎓 Tuition Fee: ₹75,000<br>
+                📚 Examination Fee: ₹5,000<br>
+                🏫 Development Fee: ₹10,000<br>
+                📖 Library Fee: ₹3,000<br>
+                🏠 Hostel Fee (if applicable): ₹40,000<br><br>
+                💰 <strong>Total Payable:</strong> ₹93,000 (without hostel)<br>
+                📅 <strong>Due Date:</strong> 15 September 2026<br><br>
+                You can pay online through the student dashboard under the <strong>Fees Section</strong>.
+                `;
+            }
+            else if (lowerInput.includes('exam') || lowerInput.includes('date')) {
+                return 'Final exams are scheduled to begin on <strong>December 10th</strong>. The detailed timetable will be published next week.';
+            }
+            else if (lowerInput.includes('train') || lowerInput.includes('concession')) {
+                return 'You can download the <strong>Train Concession Form</strong> from the Student Dashboard. Get it signed by the HOD and submit it to the office window between 10 AM - 2 PM.';
+            }
+            else if (lowerInput.includes('library') || lowerInput.includes('card')) {
+                return 'To get your Library Card, visit the Central Library with your ID proof and Fee Receipt. The card will be issued within 2 working days.';
+            }
+            else if (lowerInput.includes('document')) {
+                return 'The required documents for verification are:<br>1. SSC & HSC Marksheets<br>2. Leaving Certificate<br>3. Aadhar Card<br>4. Fee Receipt<br>5. Anti-Ragging Affidavit';
+            }
+            else if (lowerInput.includes('admission') || lowerInput.includes('enrollment') || lowerInput.includes('form')) {
+                return `
+                <strong>Admission Portal Open:</strong><br>
+                Please fill out the digital application form for 2026-27 using the link below:<br><br>
+                🔗 <a href="#" onclick="showPage('admissionPage')" style="color: #3498db; font-weight: bold; text-decoration: none; border-bottom: 2px solid #3498db;">Open Admission Form</a><br><br>
+                (Click to open the admission form)
+                `;
+            }
+            else if (lowerInput.includes('scholarship') || lowerInput.includes('financial aid')) {
+                return `
+                <strong>Scholarship Application:</strong><br>
+                We offer merit-based and need-based scholarships. Download the application form here:<br><br>
+                🎓 <a href="#" style="color: #3498db; font-weight: bold; text-decoration: none;">Download Scholarship Form.pdf</a><br><br>
+                <strong>Required Attachments:</strong><br>
+                1. Income Certificate<br>
+                2. Previous Semester Marksheets<br>
+                3. Caste Certificate (if applicable)
+                `;
+            }
+            else if (lowerInput.includes('hello') || lowerInput.includes('hi') || lowerInput.includes('hey')) {
+                return 'Hello there! What can I do for you?';
+            }
+            else if (lowerInput.includes('thank')) {
+                return 'You are welcome! Let me know if you need anything else.';
+            }
+            else {
+                return 'I am not sure about that. Please try asking about "Attendance", "Grades", "Fees", "Hostel", "Library", "Admission", or "Scholarship".';
+            }
+        }
+
+        let canvas, ctx, drawing = false;
+        let canvas2, ctx2, drawing2 = false;
+
+        function initAdmissionFormInDashboard() {
+            canvas = document.getElementById('signaturePad');
+            if (canvas) {
+                ctx = canvas.getContext('2d');
+                resizeCanvas();
+                initDrawingEvents();
+            }
+
+            const savedData = sessionStorage.getItem('admission_draft');
+            if(savedData) {
+                const data = JSON.parse(savedData);
+                const form = document.getElementById('admissionForm');
+                Object.keys(data).forEach(key => {
+                    const el = form.elements[key];
+                    if(el) el.value = data[key];
+                });
+            }
+
+            currentStep = 1;
+            updateStepperUI();
+        }
+
+        function initAdmissionForm() {
+            canvas2 = document.getElementById('signaturePad2');
+            if (canvas2) {
+                ctx2 = canvas2.getContext('2d');
+                resizeCanvas2();
+                initDrawingEvents2();
+            }
+
+            const savedData = sessionStorage.getItem('admission_draft2');
+            if(savedData) {
+                const data = JSON.parse(savedData);
+                const form = document.getElementById('admissionForm2');
+                Object.keys(data).forEach(key => {
+                    const el = form.elements[key];
+                    if(el) el.value = data[key];
+                });
+            }
+
+            currentStep2 = 1;
+            updateStepperUI2();
+        }
+
+        function resizeCanvas() {
+            if (!canvas) return;
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+        }
+
+        function resizeCanvas2() {
+            if (!canvas2) return;
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas2.width = canvas2.offsetWidth * ratio;
+            canvas2.height = canvas2.offsetHeight * ratio;
+            canvas2.getContext("2d").scale(ratio, ratio);
+        }
+
+        function initDrawingEvents() {
+            if (!canvas) return;
+            
+            function startPosition(e) {
+                drawing = true;
+                draw(e);
+            }
+            function endPosition() {
+                drawing = false;
+                ctx.beginPath();
+            }
+            function draw(e) {
+                if(!drawing) return;
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+                const clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
+                
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = '#1e293b';
+
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            }
+
+            canvas.addEventListener('mousedown', startPosition);
+            canvas.addEventListener('mouseup', endPosition);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startPosition(e); });
+            canvas.addEventListener('touchend', endPosition);
+            canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
+        }
+
+        function initDrawingEvents2() {
+            if (!canvas2) return;
+            
+            function startPosition(e) {
+                drawing2 = true;
+                draw2(e);
+            }
+            function endPosition() {
+                drawing2 = false;
+                ctx2.beginPath();
+            }
+            function draw2(e) {
+                if(!drawing2) return;
+                const rect = canvas2.getBoundingClientRect();
+                const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+                const clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
+                
+                ctx2.lineWidth = 2;
+                ctx2.lineCap = 'round';
+                ctx2.strokeStyle = '#1e293b';
+
+                ctx2.lineTo(x, y);
+                ctx2.stroke();
+                ctx2.beginPath();
+                ctx2.moveTo(x, y);
+            }
+
+            canvas2.addEventListener('mousedown', startPosition);
+            canvas2.addEventListener('mouseup', endPosition);
+            canvas2.addEventListener('mousemove', draw2);
+            canvas2.addEventListener('touchstart', (e) => { e.preventDefault(); startPosition(e); });
+            canvas2.addEventListener('touchend', endPosition);
+            canvas2.addEventListener('touchmove', (e) => { e.preventDefault(); draw2(e); });
+        }
+
+        function clearSignature() {
+            if (ctx) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        function clearSignature2() {
+            if (ctx2) {
+                ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+            }
+        }
+
+        function updateFileLabel(input) {
+            const fileName = input.files[0]?.name || "Click to upload (PDF/JPG)";
+            const fileNameSpan = input.parentElement.querySelector('.file-name');
+            if (fileNameSpan) fileNameSpan.innerText = fileName;
+            input.parentElement.classList.add('border-blue-500', 'bg-blue-50');
+        }
+
+        function updateFileLabel2(input) {
+            const fileName = input.files[0]?.name || "Click to upload (PDF/JPG)";
+            const fileNameSpan = input.parentElement.querySelector('.file-name2');
+            if (fileNameSpan) fileNameSpan.innerText = fileName;
+            input.parentElement.classList.add('border-blue-500', 'bg-blue-50');
+        }
+
+        function updatePhotoPreview(input) {
+            const previewDiv = document.getElementById('photoPreview');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewDiv.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover rounded-full" />`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                previewDiv.innerHTML = `<i class="fas fa-camera text-lg"></i>`;
+            }
+        }
+
+        function updatePhotoPreview2(input) {
+            const previewDiv = document.getElementById('photoPreview2');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewDiv.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover rounded-full" />`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                previewDiv.innerHTML = `<i class="fas fa-camera text-lg"></i>`;
+            }
+        }
+
+        function changeStep(n) {
+            const form = document.getElementById('admissionForm');
+            
+            if (n > 0) {
+                const currentInputs = document.getElementById(`step${currentStep}`).querySelectorAll('[required]');
+                let valid = true;
+                currentInputs.forEach(input => {
+                    if (!input.value) {
+                        input.classList.add('border-red-500', 'bg-red-50');
+                        valid = false;
+                    } else {
+                        input.classList.remove('border-red-500', 'bg-red-50');
+                    }
+                });
+                if (!valid) return;
+            }
+
+            document.getElementById(`step${currentStep}`).classList.replace('step-active', 'step-inactive');
+            
+            currentStep += n;
+
+            if (currentStep > totalSteps) {
+                currentStep = totalSteps;
+                showSuccess();
+                return;
+            }
+
+            document.getElementById(`step${currentStep}`).classList.replace('step-inactive', 'step-active');
+            
+            updateStepperUI();
+            
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => { if(typeof value === 'string') data[key] = value; });
+            sessionStorage.setItem('admission_draft', JSON.stringify(data));
+        }
+
+        function changeStep2(n) {
+            const form = document.getElementById('admissionForm2');
+            
+            if (n > 0) {
+                const currentInputs = document.getElementById(`step${currentStep2}-2`).querySelectorAll('[required]');
+                let valid = true;
+                currentInputs.forEach(input => {
+                    if (!input.value) {
+                        input.classList.add('border-red-500', 'bg-red-50');
+                        valid = false;
+                    } else {
+                        input.classList.remove('border-red-500', 'bg-red-50');
+                    }
+                });
+                if (!valid) return;
+            }
+
+            document.getElementById(`step${currentStep2}-2`).classList.replace('step-active', 'step-inactive');
+            
+            currentStep2 += n;
+
+            if (currentStep2 > totalSteps) {
+                currentStep2 = totalSteps;
+                showSuccess2();
+                return;
+            }
+
+            document.getElementById(`step${currentStep2}-2`).classList.replace('step-inactive', 'step-active');
+            
+            updateStepperUI2();
+            
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => { if(typeof value === 'string') data[key] = value; });
+            sessionStorage.setItem('admission_draft2', JSON.stringify(data));
+        }
+
+        function updateStepperUI() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (currentStep === 1) {
+                prevBtn.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                prevBtn.classList.remove('opacity-0', 'pointer-events-none');
+            }
+
+            if (currentStep === totalSteps) {
+                nextBtn.innerHTML = 'Submit Application <i class="fas fa-paper-plane ml-2"></i>';
+                nextBtn.classList.replace('bg-blue-600', 'bg-green-600');
+            } else {
+                nextBtn.innerHTML = 'Next Step <i class="fas fa-arrow-right ml-2"></i>';
+                nextBtn.classList.replace('bg-green-600', 'bg-blue-600');
+            }
+
+            const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            document.getElementById('progressLine').style.width = `${progress}%`;
+
+            document.querySelectorAll('.step-icon').forEach(icon => {
+                const stepNum = parseInt(icon.dataset.step);
+                if (stepNum < currentStep) {
+                    icon.innerHTML = '<i class="fas fa-check text-sm"></i>';
+                    icon.className = 'step-icon w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shadow-md transition-all duration-300 border-4 border-white';
+                } else if (stepNum === currentStep) {
+                    icon.innerHTML = stepNum;
+                    icon.className = 'step-icon w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shadow-md transition-all duration-300 border-4 border-white scale-110 ring-4 ring-blue-100';
+                } else {
+                    icon.innerHTML = stepNum;
+                    icon.className = 'step-icon w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold transition-all duration-300 border-4 border-white';
+                }
+            });
+        }
+
+        function updateStepperUI2() {
+            const prevBtn = document.getElementById('prevBtn2');
+            const nextBtn = document.getElementById('nextBtn2');
+            
+            if (currentStep2 === 1) {
+                prevBtn.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                prevBtn.classList.remove('opacity-0', 'pointer-events-none');
+            }
+
+            if (currentStep2 === totalSteps) {
+                nextBtn.innerHTML = 'Submit Application <i class="fas fa-paper-plane ml-2"></i>';
+                nextBtn.classList.replace('bg-blue-600', 'bg-green-600');
+            } else {
+                nextBtn.innerHTML = 'Next Step <i class="fas fa-arrow-right ml-2"></i>';
+                nextBtn.classList.replace('bg-green-600', 'bg-blue-600');
+            }
+
+            const progress = ((currentStep2 - 1) / (totalSteps - 1)) * 100;
+            const progressLine = document.getElementById('progressLine2');
+            if (progressLine) {
+                progressLine.style.width = `${progress}%`;
+            }
+
+            document.querySelectorAll('.step-icon2').forEach(icon => {
+                const stepNum = parseInt(icon.dataset.step);
+                if (stepNum < currentStep2) {
+                    icon.innerHTML = '<i class="fas fa-check text-sm"></i>';
+                    icon.className = 'step-icon2 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shadow-md transition-all duration-300 border-4 border-white';
+                } else if (stepNum === currentStep2) {
+                    icon.innerHTML = stepNum;
+                    icon.className = 'step-icon2 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shadow-md transition-all duration-300 border-4 border-white scale-110 ring-4 ring-blue-100';
+                } else {
+                    icon.innerHTML = stepNum;
+                    icon.className = 'step-icon2 w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center font-bold transition-all duration-300 border-4 border-white';
+                }
+            });
+        }
+
+        function showSuccess() {
+            const modal = document.getElementById('successModal');
+            const content = document.getElementById('modalContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-90');
+                content.classList.add('scale-100');
+            }, 10);
+            sessionStorage.removeItem('admission_draft');
+        }
+
+        function showSuccess2() {
+            const modal = document.getElementById('successModal2');
+            const content = document.getElementById('modalContent2');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-90');
+                content.classList.add('scale-100');
+            }, 10);
+            sessionStorage.removeItem('admission_draft2');
+        }
+
+        function closeAdmissionModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            showDashboardSection('overview');
+        }
+
+        function closeAdmissionModal2() {
+            document.getElementById('successModal2').classList.add('hidden');
+            showPage('landingPage');
+        }
+
+ 
+        function renderStaffDashboard() {
+            document.querySelectorAll('.staff-page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById('staffDashboardPage').innerHTML = buildStaffDashboardHTML();
+            document.getElementById('staffDashboardPage').classList.add('active-page');
+            setActiveStaffNav('dashboard');
+            attachStaffDashboardEvents();
+        }
+
+        function buildStaffDashboardHTML() {
+            const pendingDocs = verificationData.filter(v => v.status === 'pending').length;
+            const overdueFees = feeData.filter(f => f.status === 'overdue').length;
+            const totalCollected = feeData.filter(f => f.status==='paid').reduce((acc,f)=>acc+f.amount,0);
+            const totalExpected = feeData.reduce((acc,f)=>acc+f.amount,0);
+
+            let verifyRows = verificationData.slice(0,4).map(v => `<tr>
+                <td><b>${v.name}</b> (${v.enroll})</td><td>${v.docs}</td>
+                <td><span class="status-tag ${v.status==='verified'?'verified':''}">${v.status}</span></td>
+                <td><span class="action-mini staff-verify-action" data-id="${v.id}"><i class="fas fa-check-circle"></i> ${v.status==='verified'?'view':'verify'}</span></td>
+            </tr>`).join('');
+
+            let feeRows = feeData.slice(0,4).map(f => `<div class="fee-item"><span>${f.name} (${f.branch})</span><span class="fee-status ${f.status}">${f.status}</span></div>`).join('');
+
+            let announceRows = announcements.slice(0,3).map(a => `<div class="announce-item"><p><i class="fas fa-${a.icon}" style="color:#fbbf24;"></i> ${a.title}</p><div class="ann-meta"><span>📅 ${a.date}</span><span>${a.dept}</span></div></div>`).join('');
+
+            return `
+            <div class="staff-page-title">
+                <h1><i class="fas fa-house"></i> Dashboard overview</h1>
+                <div class="date-badge"><i class="far fa-calendar-alt"></i> ${new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}</div>
+            </div>
+            <div class="grid-2col">
+                <div class="card">
+                    <div class="card-header"><h3><i class="fas fa-file-signature" style="color:#d97706;"></i> Verification</h3><span class="badge">${pendingDocs} pending</span></div>
+                    <table class="verify-table"><tr><th>Student</th><th>Docs</th><th>Status</th><th></th></tr>${verifyRows}</table>
+                    <div style="margin-top:20px;"><span class="chip" data-staff-nav="verification">↗️ full verification</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3><i class="fas fa-coins" style="color:#16a34a;"></i> Fee snapshot</h3><span class="badge green">overdue: ${overdueFees}</span></div>
+                    ${feeRows}<div style="margin-top:12px;">💰 collected: ₹${totalCollected} / ₹${totalExpected}</div>
+                </div>
+            </div>
+            <div class="grid-2col">
+                <div class="card">
+                    <div class="card-header"><h3><i class="fas fa-bullhorn"></i> Announcements</h3><span class="badge">new</span></div>
+                    ${announceRows}
+                    <span class="chip" style="margin-top:12px;" data-staff-nav="announcements">➕ create or view all</span>
+                </div>
+                <div class="card" style="background: #eaf2ff;">
+                    <h3><i class="fas fa-chart-simple"></i> at a glance</h3>
+                    <div style="display:flex; gap:1rem; margin:1rem 0;"><span>👥 ${studentMaster.length} students</span><span>📋 ${pendingDocs} unverified</span></div>
+                    <div>📊 fee collection: ${Math.round(totalCollected/totalExpected*100)}%</div>
+                </div>
+            </div>
+            <div class="search-section" style="margin-top:1.5rem;">
+                <h3 style="color:#0b223a;"><i class="fas fa-magnifying-glass" style="color:#fbbf24;"></i> quick student search</h3>
+                <div class="search-bar"><input id="staffDashboardSearchInput" placeholder="Name, enroll, branch..."><button id="staffDashboardSearchBtn"><i class="fas fa-search"></i> go</button></div>
+                <div class="student-grid" id="staffDashboardSearchResults">${buildStudentCardsHTML(studentMaster.slice(0,4))}</div>
+            </div>`;
+        }
+
+        function buildStudentCardsHTML(arr) {
+            return arr.map(s => `<div class="student-card"><div class="avatar">${s.avatar}</div><div class="student-info"><h4>${s.name}</h4><p>${s.enroll} · ${s.branch}</p><p><i class="fas fa-id-card"></i> docs:${s.docsStatus} · fee:${s.feeStatus}</p></div></div>`).join('');
+        }
+
+        function attachStaffDashboardEvents() {
+            document.querySelectorAll('.staff-verify-action').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    let id = parseInt(btn.dataset.id);
+                    let rec = verificationData.find(v => v.id === id);
+                    if (rec && rec.status === 'pending') {
+                        rec.status = 'verified';
+                        rec.verifiedBy = 'Meera';
+                        showToast(`✅ verified ${rec.name}`);
+                        renderStaffDashboard();
+                    } else showToast('already verified');
+                });
+            });
+
+            document.getElementById('staffDashboardSearchBtn')?.addEventListener('click', ()=>{
+                let q = document.getElementById('staffDashboardSearchInput').value.toLowerCase();
+                let filt = studentMaster.filter(s => s.name.toLowerCase().includes(q) || s.enroll.toLowerCase().includes(q) || s.branch.toLowerCase().includes(q));
+                document.getElementById('staffDashboardSearchResults').innerHTML = buildStudentCardsHTML(filt);
+            });
+
+            document.querySelectorAll('.chip[data-staff-nav="verification"]').forEach(el => el.addEventListener('click', ()=>renderStaffVerification()));
+            document.querySelectorAll('.chip[data-staff-nav="announcements"]').forEach(el => el.addEventListener('click', ()=>renderStaffAnnouncements()));
+        }
+
+        function renderStaffVerification() {
+            document.querySelectorAll('.staff-page').forEach(p => p.classList.remove('active-page'));
+            let rows = verificationData.map(v => `<tr><td><b>${v.name}</b> (${v.enroll})</td><td>${v.docs}</td><td><span class="status-tag ${v.status==='verified'?'verified':''}">${v.status}</span></td><td><span class="action-mini staff-verify-full" data-id="${v.id}"><i class="fas fa-check-circle"></i> ${v.status==='verified'?'done':'verify'}</span></td></tr>`).join('');
+            document.getElementById('staffVerificationPage').innerHTML = `
+                <div class="staff-page-title"><h1><i class="fas fa-file-signature"></i> document verification</h1><span class="date-badge">${verificationData.filter(v=>v.status==='pending').length} pending</span></div>
+                <div class="card"><table class="verify-table"><tr><th>Student</th><th>Documents</th><th>Status</th><th>Action</th></tr>${rows}</table></div>
+                <div style="margin-top:20px;"><span class="chip" id="staffBackToDashFromVer">← back to dashboard</span></div>
+            `;
+            document.getElementById('staffVerificationPage').classList.add('active-page');
+            setActiveStaffNav('verification');
+
+            document.querySelectorAll('.staff-verify-full').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    let id = parseInt(btn.dataset.id);
+                    let rec = verificationData.find(v => v.id === id);
+                    if (rec && rec.status === 'pending') {
+                        rec.status = 'verified';
+                        rec.verifiedBy = 'staff';
+                        showToast(`✅ verified ${rec.name}`);
+                        renderStaffVerification();
+                    } else showToast('already verified');
+                });
+            });
+            document.getElementById('staffBackToDashFromVer')?.addEventListener('click', renderStaffDashboard);
+        }
+
+        function renderStaffFeePage() {
+            document.querySelectorAll('.staff-page').forEach(p => p.classList.remove('active-page'));
+            let totalPend = feeData.filter(f => f.status==='pending').reduce((a,f)=>a+f.amount,0);
+            let totalOver = feeData.filter(f => f.status==='overdue').reduce((a,f)=>a+f.amount,0);
+            let rows = feeData.map(f => `<tr><td>${f.name}</td><td>${f.branch}</td><td>₹${f.amount}</td><td><span class="fee-status ${f.status}">${f.status}</span></td></tr>`).join('');
+            document.getElementById('staffFeePage').innerHTML = `
+                <div class="staff-page-title"><h1><i class="fas fa-coins"></i> fee monitoring</h1></div>
+                <div style="display:flex; gap:1rem; margin-bottom:1.5rem;"><div class="card">pending: ₹${totalPend}</div><div class="card">overdue: ₹${totalOver}</div></div>
+                <div class="card"><table class="verify-table"><tr><th>Name</th><th>Branch</th><th>Amount</th><th>Status</th></tr>${rows}</table></div>
+                <span class="chip" id="staffBackFromFee">← back</span>
+            `;
+            document.getElementById('staffFeePage').classList.add('active-page');
+            setActiveStaffNav('fee');
+            document.getElementById('staffBackFromFee')?.addEventListener('click', renderStaffDashboard);
+        }
+
+        function renderStaffAnnouncements() {
+            document.querySelectorAll('.staff-page').forEach(p => p.classList.remove('active-page'));
+            let list = announcements.map(a => `<div class="announce-item"><p><i class="fas fa-${a.icon}"></i> ${a.title}</p><div class="ann-meta">${a.date} · ${a.dept}</div></div>`).join('');
+            document.getElementById('staffAnnouncementsPage').innerHTML = `
+                <div class="staff-page-title"><h1><i class="fas fa-bullhorn"></i> announcements</h1></div>
+                <div class="card">
+                    <div class="card-header"><h3>📢 create new</h3></div>
+                    <input id="staffNewAnnTitle" style="width:100%; padding:1rem; margin-bottom:10px; border-radius:60px; border:2px solid #deecfc;" placeholder="title">
+                    <select id="staffNewAnnDept" style="padding:0.6rem; border-radius:60px; border:1px solid #ccc; margin-right:1rem;">
+                        <option>academic</option>
+                        <option>accounts</option>
+                        <option>placement</option>
+                    </select>
+                    <button class="action-mini" id="staffPostAnnBtn">post</button>
+                </div>
+                <div class="card" style="margin-top:1.5rem;"><h3>previous</h3>${list}</div>
+                <span class="chip" id="staffBackFromAnn">← back</span>
+            `;
+            document.getElementById('staffAnnouncementsPage').classList.add('active-page');
+            setActiveStaffNav('announcements');
+            document.getElementById('staffPostAnnBtn')?.addEventListener('click', ()=>{
+                let t = document.getElementById('staffNewAnnTitle').value;
+                if (!t) return;
+                let deptSel = document.getElementById('staffNewAnnDept').value;
+                announcements.unshift({id:Date.now(), title:t, date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}), dept:deptSel, icon:'bullhorn'});
+                renderStaffAnnouncements();
+                showToast('📣 posted');
+            });
+            document.getElementById('staffBackFromAnn')?.addEventListener('click', renderStaffDashboard);
+        }
+
+        function renderStaffSearchPage() {
+            document.querySelectorAll('.staff-page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById('staffSearchPage').innerHTML = `
+                <div class="staff-page-title"><h1><i class="fas fa-search"></i> student directory</h1></div>
+                <div class="search-section" style="margin-top:0;">
+                    <div class="search-bar"><input id="staffGlobalSearchInput" placeholder="name, enroll, branch"><button id="staffGlobalSearchBtn"><i class="fas fa-search"></i> search</button></div>
+                    <div class="filter-chips"><span class="chip" id="staffFilterAll">all</span><span class="chip" id="staffFilterPending">pending docs</span><span class="chip" id="staffFilterDefaulter">fee defaulter</span></div>
+                    <div class="student-grid" id="staffGlobalSearchResults">${buildStudentCardsHTML(studentMaster)}</div>
+                </div>
+            `;
+            document.getElementById('staffSearchPage').classList.add('active-page');
+            setActiveStaffNav('search');
+
+            function filterStudents(fn) { 
+                document.getElementById('staffGlobalSearchResults').innerHTML = buildStudentCardsHTML(studentMaster.filter(fn)); 
+            }
+            document.getElementById('staffGlobalSearchBtn')?.addEventListener('click', ()=>{
+                let q = document.getElementById('staffGlobalSearchInput').value.toLowerCase();
+                filterStudents(s => s.name.toLowerCase().includes(q) || s.enroll.toLowerCase().includes(q) || s.branch.toLowerCase().includes(q));
+            });
+            document.getElementById('staffFilterAll')?.addEventListener('click', ()=>filterStudents(()=>true));
+            document.getElementById('staffFilterPending')?.addEventListener('click', ()=>filterStudents(s=>s.docsStatus==='pending'));
+            document.getElementById('staffFilterDefaulter')?.addEventListener('click', ()=>filterStudents(s=>s.feeStatus==='overdue'||s.feeStatus==='pending'));
+        }
+
+        function setActiveStaffNav(page) {
+            document.querySelectorAll('.staff-nav-item').forEach(n => n.classList.remove('active'));
+            let map = { dashboard:0, verification:1, fee:2, announcements:3, search:4, studentPortal:5 };
+            let idx = map[page];
+            if (idx !== undefined) document.querySelectorAll('.staff-nav-item')[idx].classList.add('active');
+        }
+
+    
+        document.querySelectorAll('.staff-nav-item').forEach((item, index) => {
+            item.addEventListener('click', (e) => {
+                let pages = ['dashboard','verification','fee','announcements','search','studentPortal'];
+                let page = pages[index];
+                if (page === 'dashboard') renderStaffDashboard();
+                else if (page === 'verification') renderStaffVerification();
+                else if (page === 'fee') renderStaffFeePage();
+                else if (page === 'announcements') renderStaffAnnouncements();
+                else if (page === 'search') renderStaffSearchPage();
+                else if (page === 'studentPortal') showPage('dashboardPage');
+            });
+        });
+
+        document.getElementById('staffLogoutBtn')?.addEventListener('click', ()=>{
+            logout();
+        });
+
+        
+        window.onload = function() {
+            const userData = sessionStorage.getItem('currentUser');
+            if (userData) {
+                currentUser = JSON.parse(userData);
+                if (document.getElementById('landingPage').classList.contains('active') || 
+                    document.getElementById('loginPage').classList.contains('active')) {
+                    if (currentUser.role === 'staff') {
+                        showPage('staffPortalPage');
+                    } else {
+                        showPage('dashboardPage');
+                    }
+                }
+            }
+
+            window.addEventListener('resize', function() {
+                resizeCanvas();
+                resizeCanvas2();
+                if (window.innerWidth > 768) {
+                    document.getElementById('sidebar')?.classList.remove('active');
+                    document.getElementById('staffSidebar')?.classList.remove('active');
+                    document.getElementById('navLinks')?.classList.remove('active');
+                }
+            });
+        };
+    </script>
+</body>
+</html>
